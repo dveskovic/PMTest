@@ -89,10 +89,11 @@ class DataController extends Controller
         $results = array("name" => "testProduct", "color" => "red");
         $filename = $this->generateRandomString() . '.json';
         $file = $directory . $filename;
+        $fileContent = json_encode(array_values($results));
        // write($file, json_encode(array_values($results)));
        // $fileSize = filesize($file);
 
-        $this->storage->uploadFile('PMTest', null, $file, true, null);
+        $this->storage->uploadFile('PMTest', $fileContent, $file, true, null);
 
     /*    public function uploadFile(
         string $pluginName,
