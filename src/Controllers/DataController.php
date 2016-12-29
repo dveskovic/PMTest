@@ -10,6 +10,8 @@ use Plenty\Modules\System\Models;
 use Plenty\Plugin\Http\Response;
 use Plenty\Plugin\Http\Request;
 use IO\Services\ItemService;
+use Plenty\Modules\Plugin\Storage\Contracts;
+
 
 /**
  * Class ContentController
@@ -46,6 +48,11 @@ class DataController extends Controller
      */
     private $storeHelper;
 
+    /**
+     * @var Contracts
+     */
+    private $storage;
+
 
 
     public function __construct(
@@ -53,12 +60,14 @@ class DataController extends Controller
         Request $request,
         ItemService $service,
         WebstoreHelper $storeHelper,
+        Contracts $storage,
         Models\webstoreConfiguration $webstoreConfiguration)
     {
         $this->response = $response;
         $this->request = $request;
         $this->itemService = $service;
         $this->storeHelper = $storeHelper;
+        $this->storage = $storage;
         $this->storeConfiguration = $webstoreConfiguration;
     }
 
@@ -69,32 +78,52 @@ class DataController extends Controller
     public function export()
     {
 
-/*        $productIds = $this->request->get('productIds');
-        $productIds = isset($productIds) ? explode(',', $productIds) : null;
-        $storeConf = $this->storeConfiguration->toArray();
-
-        foreach ($productIds as $productId) {
-            $product = $this->itemService->getItem($productId);
-            $products[] = [
-                'id' => $product->itemBase->id,
-                'link' => $this->itemService->getItemURL($product->itemBase->id),
-                'price' => $product->variationRetailPrice->price,
-                'image' => $this->itemService->getItemImage($product->itemBase->id),
-                'title' => $product->itemDescription->name1,
-            ];
-        }*/
-        /** @var \Plenty\Modules\System\Models\WebstoreConfiguration $webstoreConfig */
         $webstoreConfig = $this->storeHelper->getCurrentWebstoreConfiguration();
         if (is_null($webstoreConfig)) {
             return 'error';
         }
         $baseURL = $webstoreConfig->domain;
-        $t = 'https://test22.plentymarkets-cloud01.com/layout/callisto_en_3/testing';
-       // $directory = $baseURL . '/'. self::LAYOUT . '/' . self::YC_DIRECTORY_NAME . '/';
+        //$t = 'https://test22.plentymarkets-cloud01.com/layout/callisto_en_3/testing';
+        $directory = $baseURL . '/'. self::LAYOUT . '/';
         //mkdir($directory, 0777, true);
-        mkdir($t, 0777, true);
-        $test = ['test' =>  $t];
+        $results = array("name" => "testProduct", "color" => "red");
+        $filename = $this->generateRandomString() . '.json';
+        $file = $directory . $filename;
+       // write($file, json_encode(array_values($results)));
+        $fileSize = filesize($file);
+
+        $this->storage->uploadFile('PMTest', null, $file, true, null);
+
+    /*    public function uploadFile(
+        string $pluginName,
+        string $key,
+        string $pathToFile,
+        boolean $publicVisible = false,
+        array $metaData = []
+    ):boolean;*/
+
+        $test = ['test' => $directory];
 
         return $this->response->json($test);
+    }
+
+
+
+    /**
+     * Generates random string with $length characters
+     *
+     * @param int $length
+     * @return string
+     */
+    private function generateRandomString($length = 20)
+    {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+
+        return $randomString;
     }
 }
