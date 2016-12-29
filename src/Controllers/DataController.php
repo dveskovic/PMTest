@@ -89,10 +89,10 @@ class DataController extends Controller
             return 'error';
         }
         $baseURL = $webstoreConfig->domain;
-        $t = 'https://test22.plentymarkets-cloud01.com/layout/callisto_en_3/';
+        $t = 'https://test22.plentymarkets-cloud01.com/layout/callisto_en_3/testing';
        // $directory = $baseURL . '/'. self::LAYOUT . '/' . self::YC_DIRECTORY_NAME . '/';
         //mkdir($directory, 0777, true);
-
+        mkdir($t, 0777, true);
         $test = ['test' =>  $t];
 
         return $this->response->json($test);
