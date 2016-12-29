@@ -18,6 +18,9 @@ use IO\Services\ItemService;
 class DataController extends Controller
 {
 
+    const YC_DIRECTORY_NAME = 'yoochoose';
+    const LAYOUT = 'layout/callisto_en_3';
+
     /**
      * @var null|Response
      */
@@ -86,6 +89,8 @@ class DataController extends Controller
             return 'error';
         }
         $baseURL = $webstoreConfig->domain;
+        $directory = $baseURL . '/'. self::LAYOUT . '/' . self::YC_DIRECTORY_NAME . '/';
+        mkdir($directory, 0775);
 
         $test = ['test' => $baseURL];
 
