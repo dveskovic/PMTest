@@ -91,7 +91,10 @@ class DataController extends Controller
         $file = $directory . $filename;
         $fileContent = json_encode(array_values($results));
         $this->storage->uploadFile('pmtest', $fileContent, $file, true, null);
-        
+
+
+        File::makeDirectory($directory, $mode = 0777, true, true);
+
         $test = ['test' => $directory];
 
         return $this->response->json($test);
