@@ -90,9 +90,9 @@ class DataController extends Controller
         }
         $baseURL = $webstoreConfig->domain;
         $directory = $baseURL . '/'. self::LAYOUT . '/' . self::YC_DIRECTORY_NAME . '/';
-        mkdir($directory, 0777, true);
+        //mkdir($directory, 0777, true);
 
-        $test = ['test' => $baseURL];
+        $test = ['test' => $directory];
 
         return $this->response->json($test);
     }
