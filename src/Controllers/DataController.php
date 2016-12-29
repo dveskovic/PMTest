@@ -3,6 +3,7 @@ namespace PMTest\Controllers;
 
 use Plenty\Plugin\Controller;
 use Plenty\Plugin\Templates\Twig;
+use Plenty\Modules\Helper\Services\WebstoreHelper;
 use Plenty\Modules\Frontend\Services;
 use Plenty\Modules\System\Models;
 
@@ -37,17 +38,24 @@ class DataController extends Controller
      */
     private $storeConfiguration;
 
+    /**
+     * @var WebstoreHelper
+     */
+    private $storeHelper;
+
 
 
     public function __construct(
         Response $response,
         Request $request,
         ItemService $service,
+        WebstoreHelper $storeHelper,
         Models\webstoreConfiguration $webstoreConfiguration)
     {
         $this->response = $response;
         $this->request = $request;
         $this->itemService = $service;
+        $this->storeHelper = $storeHelper;
         $this->storeConfiguration = $webstoreConfiguration;
     }
 
@@ -72,9 +80,14 @@ class DataController extends Controller
                 'title' => $product->itemDescription->name1,
             ];
         }*/
-        $basePath = GetGlobal('LayoutFolder');
+        /** @var \Plenty\Modules\System\Models\WebstoreConfiguration $webstoreConfig */
+        $webstoreConfig = $this->storeHelper->getCurrentWebstoreConfiguration();
+        if (is_null($webstoreConfig)) {
+            return 'error';
+        }
+        $baseURL = $webstoreConfig->domain;
 
-        $test = ['test' => 'teeeest'];
+        $test = ['test' => $baseURL];
 
         return $this->response->json($test);
     }
