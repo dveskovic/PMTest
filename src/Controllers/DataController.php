@@ -90,10 +90,7 @@ class DataController extends Controller
         $filename = $this->generateRandomString() . '.json';
         $file = $directory . $filename;
         $fileContent = json_encode(array_values($results));
-      //  $this->storage->uploadFile('pmtest', $fileContent, $file, true, null);
-
-
-        mkdir($directory, $mode = 0777, true, true);
+        $this->storage->uploadFile('pmtest', $fileContent, $file, true, null);
 
         $test = ['test' => $directory];
 
