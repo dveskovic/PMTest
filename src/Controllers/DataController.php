@@ -93,7 +93,7 @@ class DataController extends Controller
        // write($file, json_encode(array_values($results)));
        // $fileSize = filesize($file);
         $test2 = '22';
-        $this->storage->uploadFile('pmtest', $fileContent, $file, true, null);
+        $this->storage->uploadFile('production/pmtest', $fileContent, $file, true, null);
 
     /*    public function uploadFile(
         string $pluginName,
