@@ -60,7 +60,7 @@ class DataController extends Controller
         Request $request,
         ItemService $service,
         WebstoreHelper $storeHelper,
-        Contracts $storage,
+        Contracts\StorageRepositoryContract $storage,
         Models\webstoreConfiguration $webstoreConfiguration)
     {
         $this->response = $response;
@@ -90,7 +90,7 @@ class DataController extends Controller
         $filename = $this->generateRandomString() . '.json';
         $file = $directory . $filename;
        // write($file, json_encode(array_values($results)));
-        $fileSize = filesize($file);
+       // $fileSize = filesize($file);
 
         $this->storage->uploadFile('PMTest', null, $file, true, null);
 
