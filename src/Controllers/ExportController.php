@@ -72,8 +72,8 @@ class ExportController extends Controller
                 'title' => $product->itemDescription->name1,
             ];
         }
-        $test = ['test' => 'teeest'];
 
-        return $this->response->json($test);
+
+        return $this->response->json($products);
     }
 }
