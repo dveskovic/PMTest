@@ -14,7 +14,7 @@ use IO\Services\ItemService;
  * Class ContentController
  * @package PMTest\Controllers
  */
-class ExportController extends Controller
+class DataController extends Controller
 {
 
     /**
@@ -58,7 +58,7 @@ class ExportController extends Controller
     public function export()
     {
 
-        $productIds = $this->request->get('productIds');
+/*        $productIds = $this->request->get('productIds');
         $productIds = isset($productIds) ? explode(',', $productIds) : null;
         $storeConf = $this->storeConfiguration->toArray();
 
@@ -71,9 +71,11 @@ class ExportController extends Controller
                 'image' => $this->itemService->getItemImage($product->itemBase->id),
                 'title' => $product->itemDescription->name1,
             ];
-        }
+        }*/
+        $basePath = GetGlobal('LayoutFolder');
 
+        $test = ['test' => 'teeeest'];
 
-        return $this->response->json($products);
+        return $this->response->json($test);
     }
 }
