@@ -74,6 +74,6 @@ class ExportController extends Controller
         }
 
 
-        return $this->response->json($products);
+        return $this->response->json($product);
     }
 }
