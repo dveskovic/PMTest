@@ -21,7 +21,7 @@ class DataController extends Controller
 {
 
     const YC_DIRECTORY_NAME = 'yoochoose';
-    const LAYOUT = 'layout/callisto_en_3';
+    const LAYOUT = 'layout/plugins/production/pmtest/ui';
 
     /**
      * @var null|Response
@@ -90,19 +90,8 @@ class DataController extends Controller
         $filename = $this->generateRandomString() . '.json';
         $file = $directory . $filename;
         $fileContent = json_encode(array_values($results));
-       // write($file, json_encode(array_values($results)));
-       // $fileSize = filesize($file);
-        $test2 = '22';
-        $this->storage->uploadFile('production/pmtest', $fileContent, $file, true, null);
-
-    /*    public function uploadFile(
-        string $pluginName,
-        string $key,
-        string $pathToFile,
-        boolean $publicVisible = false,
-        array $metaData = []
-    ):boolean;*/
-
+        $this->storage->uploadFile('pmtest', $fileContent, $file, true, null);
+        
         $test = ['test' => $directory];
 
         return $this->response->json($test);
