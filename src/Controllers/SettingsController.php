@@ -2,10 +2,11 @@
 
 namespace PMTest\Controllers;
 
+use League\Flysystem\Exception;
 use PMTest\Services\SettingsService;
+use PMTest\Helpers\Data;
 use Plenty\Plugin\Controller;
 use Plenty\Plugin\Http\Request;
-use PMTest\Helpers\Data;
 use Plenty\Modules\Helper\Services\WebstoreHelper;
 use Plenty\Plugin\Http\Response;
 
@@ -114,15 +115,15 @@ class SettingsController extends Controller
             }
         }
 
-        $token = $request->get('token');
+        $token = $this->settingsService->getSettingsValue('token');
         if (!$token) {
-            return 'Token must be set!';
+            return $this->response->json('Token must be set!');
         }
 
         /** @var \Plenty\Modules\System\Models\WebstoreConfiguration $webstoreConfig */
         $webstoreConfig = $this->storeHelper->getCurrentWebstoreConfiguration();
         if (is_null($webstoreConfig)) {
-            return 'error';
+            return $this->response->json('error');
         }
         $baseURL = $webstoreConfig->domain;
         $customerId = $this->settingsService->getSettingsValue('customer_id');
@@ -145,9 +146,14 @@ class SettingsController extends Controller
         ];
 
         $url = self::YOOCHOOSE_LICENSE_URL . $customerId . '/plugin/update?createIfNeeded=true&fallbackDesign=true';
+        $response = $this->helper->getHttpPage($url, $body, $customerId, $licenseKey);
+        $resault = json_decode($response);
 
-        return $this->helper->getHttpPage($url, $body, $customerId, $licenseKey);
-
+        if ($resault['statusCode'] == 200) {
+            return $this->response->json('User verification successful');
+        } else {
+            throw new \Exception('User is not verified!');
+        }
     }
 
     /**

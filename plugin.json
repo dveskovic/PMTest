@@ -16,9 +16,5 @@
       "javaScriptFiles": [],
       "runOnBuild": [
             "PMTest\\Migrations\\CreateSettingsTable"
-      ],
-      "require": [],
-      "dependencies" : {
-           "illuminate/filesystem":"5.3.*"
-      }
+      ]
 }
