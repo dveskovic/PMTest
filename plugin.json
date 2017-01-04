@@ -16,11 +16,7 @@
       "javaScriptFiles": [],
       "require": [],
       "dependencies" : {
-            "illuminate/filesystem":"5.*",
-            "symfony/finder": "3.*",
-            "php": ">=7.0.0",
-            "illuminate/contracts": "5.5.*",
-            "illuminate/support": "5.5.*"
+            "illuminate/filesystem":"dev-master"
       },
 
       "runOnBuild": [
