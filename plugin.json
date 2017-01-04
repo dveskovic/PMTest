@@ -16,5 +16,6 @@
       "javaScriptFiles": [],
       "runOnBuild": [
             "PMTest\\Migrations\\CreateSettingsTable"
-      ]
+      ],
+      "require": []
 }
