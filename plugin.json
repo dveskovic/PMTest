@@ -16,7 +16,7 @@
       "javaScriptFiles": [],
       "require": [],
       "dependencies" : {
-            "symfony/filesystem":"dev-master"
+            "Illuminate/Filesystem/filesystem":"dev-master"
       },
 
       "runOnBuild": [
