@@ -17,5 +17,8 @@
       "runOnBuild": [
             "PMTest\\Migrations\\CreateSettingsTable"
       ],
+      "dependencies":{
+            "Illuminate/Filesystem":"*"
+      },
       "require": []
 }
