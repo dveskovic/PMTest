@@ -1,6 +1,7 @@
 <?php
 namespace PMTest\Controllers;
 
+use Illuminate\Filesystem\FilesystemServiceProvider;
 use Illuminate\Support\Facades\File;
 use Plenty\Plugin\Controller;
 use Plenty\Plugin\Templates\Twig;
@@ -103,7 +104,7 @@ class DataController extends Controller
 
         //Example
         $this->file->put($directory,'Test17');
-        //File::put('web/text/mytextdocument.txt','John Doe');
+
 
         $test = ['test' => $directory];
         return $this->response->json($test);
