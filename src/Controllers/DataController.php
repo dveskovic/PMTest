@@ -61,8 +61,6 @@ class DataController extends Controller
      */
     private $file;
 
-
-
     public function __construct(
         Response $response,
         Request $request,
@@ -103,7 +101,7 @@ class DataController extends Controller
        // $this->storage->uploadFile('pmtest', $fileContent, $file, true, null);
 
         //Example
-        $this->file->put($directory,'Test17');
+        $this->file->put($directory,'Test18');
 
 
         $test = ['test' => $directory];
