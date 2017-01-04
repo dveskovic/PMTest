@@ -101,7 +101,7 @@ class DataController extends Controller
        // $this->storage->uploadFile('pmtest', $fileContent, $file, true, null);
 
         //Example
-        $this->file->put($directory,'Test22.json');
+        $this->file->put($directory,'Test24.json');
 
 
         $test = ['test' => $directory];

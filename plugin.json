@@ -16,7 +16,7 @@
       "javaScriptFiles": [],
       "require": [],
       "dependencies" : {
-            "illuminate/filesystem":"dev-master"
+            "laravel/laravel":"*"
       },
 
       "runOnBuild": [
