@@ -14,9 +14,11 @@
             }
       ],
       "javaScriptFiles": [],
-      "require": [],
+      "require": {
+            "laravel/laravel":"dev-master"
+      },
       "dependencies" : {
-            "laravel/laravel":"*"
+            "illuminate/filesystem":"dev-master"
       },
 
       "runOnBuild": [
