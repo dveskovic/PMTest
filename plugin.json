@@ -14,7 +14,10 @@
             }
       ],
       "javaScriptFiles": [],
-      "require": [],
+      "require": {
+            "php": ">=7.0.0",
+            "laravel/framework": "5.2.*"
+      },
       "dependencies" : {
             "illuminate/filesystem":"*"
       },
