@@ -1,6 +1,7 @@
 <?php
 namespace PMTest\Controllers;
 
+use Illuminate\Support\Facades\File;
 use Plenty\Plugin\Controller;
 use Plenty\Plugin\Templates\Twig;
 use Plenty\Modules\Helper\Services\WebstoreHelper;
@@ -11,6 +12,7 @@ use Plenty\Plugin\Http\Response;
 use Plenty\Plugin\Http\Request;
 use IO\Services\ItemService;
 use Plenty\Modules\Plugin\Storage\Contracts;
+use Illuminate\Filesystem\Filesystem;
 
 
 /**
@@ -53,6 +55,11 @@ class DataController extends Controller
      */
     private $storage;
 
+    /**
+     * @var Filesystem
+     */
+    private $file;
+
 
 
     public function __construct(
@@ -61,6 +68,7 @@ class DataController extends Controller
         ItemService $service,
         WebstoreHelper $storeHelper,
         Contracts\StorageRepositoryContract $storage,
+        Filesystem $file,
         Models\webstoreConfiguration $webstoreConfiguration)
     {
         $this->response = $response;
@@ -68,6 +76,7 @@ class DataController extends Controller
         $this->itemService = $service;
         $this->storeHelper = $storeHelper;
         $this->storage = $storage;
+        $this->file = $file;
         $this->storeConfiguration = $webstoreConfiguration;
     }
 
@@ -90,13 +99,15 @@ class DataController extends Controller
         $filename = $this->generateRandomString() . '.json';
         $file = $directory . $filename;
         $fileContent = json_encode(array_values($results));
-        $this->storage->uploadFile('pmtest', $fileContent, $file, true, null);
+       // $this->storage->uploadFile('pmtest', $fileContent, $file, true, null);
+
+        //Example
+        $this->file->put($directory,'Test17');
+        //File::put('web/text/mytextdocument.txt','John Doe');
 
         $test = ['test' => $directory];
-
         return $this->response->json($test);
     }
-
 
 
     /**
