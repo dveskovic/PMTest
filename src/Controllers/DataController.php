@@ -13,7 +13,7 @@ use Plenty\Plugin\Http\Response;
 use Plenty\Plugin\Http\Request;
 use IO\Services\ItemService;
 use Plenty\Modules\Plugin\Storage\Contracts;
-use Illuminate\Filesystem;
+use Illuminate;
 
 
 /**
@@ -67,7 +67,7 @@ class DataController extends Controller
         ItemService $service,
         WebstoreHelper $storeHelper,
         Contracts\StorageRepositoryContract $storage,
-        Filesystem\Filesystem $file,
+        Illuminate\Filesystem\Filesystem $file,
         Models\webstoreConfiguration $webstoreConfiguration)
     {
         $this->response = $response;
@@ -101,7 +101,7 @@ class DataController extends Controller
        // $this->storage->uploadFile('pmtest', $fileContent, $file, true, null);
 
         //Example
-        $this->file->put($directory,'Test21.json');
+        $this->file->put($directory,'Test22.json');
 
 
         $test = ['test' => $directory];

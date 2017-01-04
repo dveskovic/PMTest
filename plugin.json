@@ -16,7 +16,7 @@
       "javaScriptFiles": [],
       "require": [],
       "dependencies" : {
-            "Illuminate/Filesystem/filesystem":"dev-master"
+            "illuminate/filesystem":"dev-master"
       },
 
       "runOnBuild": [
