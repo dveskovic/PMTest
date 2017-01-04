@@ -13,7 +13,7 @@ use Plenty\Plugin\Http\Response;
 use Plenty\Plugin\Http\Request;
 use IO\Services\ItemService;
 use Plenty\Modules\Plugin\Storage\Contracts;
-use Illuminate\Filesystem\Filesystem;
+use Illuminate\Filesystem;
 
 
 /**
@@ -69,7 +69,7 @@ class DataController extends Controller
         ItemService $service,
         WebstoreHelper $storeHelper,
         Contracts\StorageRepositoryContract $storage,
-        Filesystem $file,
+        Filesystem\Filesystem $file,
         Models\webstoreConfiguration $webstoreConfiguration)
     {
         $this->response = $response;
