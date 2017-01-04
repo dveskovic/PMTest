@@ -14,10 +14,10 @@
             }
       ],
       "javaScriptFiles": [],
-      "require": {
-            "laravel/laravel":"*",
-            "illuminate/filesystem":"*"
-      },
+      "require": [
+            "laravel/laravel",
+            "illuminate/filesystem"
+      ],
       "dependencies" : {
             "laravel/laravel":"*",
             "illuminate/filesystem":"*"
