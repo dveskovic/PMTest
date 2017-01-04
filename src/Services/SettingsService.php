@@ -75,7 +75,7 @@ class SettingsService
         {
             $settings->id        = $this->settingsID[$name];
             $settings->name      = $name;
-            $settings->value     = (string) $value;
+            $settings->value     = (string) json_encode($value);
             $settings->createdAt = date('Y-m-d H:i:s');
             $settings->updatedAt = date('Y-m-d H:i:s');
 
