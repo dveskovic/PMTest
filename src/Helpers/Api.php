@@ -7,7 +7,7 @@ namespace PMTest\Helpers;
 class Api
 {
     const AUTHORIZATION = 'Bearer 080042cad6356ad5dc0a720c18b53b8e53d4c274';
-    const API_URL = 'https://test33.plentymarkets-cloud01.com/rest/items?page=0&itemsPerPage=10';
+    const API_URL = 'https://test33.plentymarkets-cloud01.com/rest/items?';
 
 
     public function getHttpPage($page, $itemsPerPage)
