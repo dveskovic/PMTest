@@ -28,7 +28,7 @@ class CategoryController extends Controller
     private $request;
 
     /**
-     * @var ItemService
+     * @var CategoryService
      */
     private $categoryService;
 
