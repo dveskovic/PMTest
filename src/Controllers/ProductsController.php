@@ -9,9 +9,6 @@ use Plenty\Modules\System\Models;
 use Plenty\Plugin\Http\Response;
 use Plenty\Plugin\Http\Request;
 use IO\Services\ItemService;
-use PMTest\Helpers\Api;
-
-
 
 /**
  * Class ContentController
@@ -40,19 +37,13 @@ class ProductsController extends Controller
      */
     private $storeConfiguration;
 
-    /**
-     * @var Api
-     */
-    private $helper;
 
     public function __construct(
         Response $response,
         Request $request,
-        Api $helper,
         ItemService $service,
         Models\webstoreConfiguration $webstoreConfiguration)
     {
-        $this->helper = $helper;
         $this->response = $response;
         $this->request = $request;
         $this->itemService = $service;
@@ -66,34 +57,25 @@ class ProductsController extends Controller
     public function productsExport()
     {
 
-        $page = $this->request->get('page');
-        $itemsPerPage = $this->request->get('itemsPerPage');
-        $page = isset($page) ? $page : 0;
-        $itemsPerPage = isset($itemsPerPage) ? $itemsPerPage : 10;
+        $productIds = $this->request->get('productIds');
+        $productIds = isset($productIds) ? explode(',', $productIds) : null;
+        $storeConf = $this->storeConfiguration->toArray();
 
-        $response = $this->helper->getHttpPage($page, $itemsPerPage);
-        $result = json_decode($response);
-
-        if ($result['statusCode'] == 200) {
-            return $this->response->json('User verification successful');
-        } else {
-            return $this->response->json('User is not verified!');
-        }
-
-    /*    $storeConf = $this->storeConfiguration->toArray();
+        // searchItems->searchItems
 
         foreach ($productIds as $productId) {
-            $product = $this->itemService->getItem($productId);
-            $products[] = [
+           // $product = $this->itemService->getItem($productId);
+            $products = $this->itemService->searchItems();
+
+        /*    $products[] = [
                 'id' => $product->itemBase->id,
                 'link' => $this->itemService->getItemURL($product->itemBase->id),
                 'price' => $product->variationRetailPrice->price,
                 'image' => $this->itemService->getItemImage($product->itemBase->id),
                 'title' => $product->itemDescription->name1,
-            ];
+            ];*/
         }
 
-
-        return $this->response->json($products);*/
+        return $this->response->json($products);
     }
 }
