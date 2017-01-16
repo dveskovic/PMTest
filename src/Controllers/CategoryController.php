@@ -59,9 +59,10 @@ class CategoryController extends Controller
     {
 
 
-        $products = $this->categoryService->getHierarchy();
-       
+     /*   $products = $this->categoryService->getHierarchy();
 
-        return $this->response->json($products);
+
+        return $this->response->json($products);*/
+        echo 'aa';
     }
 }
