@@ -65,7 +65,9 @@ class ProductsController extends Controller
 
         foreach ($productIds as $productId) {
            // $product = $this->itemService->getItem($productId);
-            $products = $this->itemService->searchItems();
+            $params['itemsPerPage'] = 2;
+
+            $products = $this->itemService->searchItems(null, $params);
 
         /*    $products[] = [
                 'id' => $product->itemBase->id,
