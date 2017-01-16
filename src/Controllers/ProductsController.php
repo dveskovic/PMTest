@@ -38,6 +38,7 @@ class ProductsController extends Controller
     private $storeConfiguration;
 
 
+
     public function __construct(
         Response $response,
         Request $request,
@@ -57,28 +58,23 @@ class ProductsController extends Controller
     public function productsExport()
     {
 
-        $productIds = $this->request->get('productIds');
+   /*     $productIds = $this->request->get('productIds');
         $productIds = isset($productIds) ? explode(',', $productIds) : null;
         $storeConf = $this->storeConfiguration->toArray();
 
-        // searchItems->searchItems
-
-       // foreach ($productIds as $productId) {
-           // $product = $this->itemService->getItem($productId);
-
-            $params = (object)['itemsPerPage' => 3];
-
-            $products = $this->itemService->searchItems(null, $params);
-
-        /*    $products[] = [
+        foreach ($productIds as $productId) {
+            $product = $this->itemService->getItem($productId);
+            $products[] = [
                 'id' => $product->itemBase->id,
                 'link' => $this->itemService->getItemURL($product->itemBase->id),
                 'price' => $product->variationRetailPrice->price,
                 'image' => $this->itemService->getItemImage($product->itemBase->id),
                 'title' => $product->itemDescription->name1,
-            ];*/
-      //  }
+            ];
+        }*/
 
-        return $this->response->json($products);
+
+      //  return $this->response->json($products);
+        echo 'tu saaaam';
     }
 }
