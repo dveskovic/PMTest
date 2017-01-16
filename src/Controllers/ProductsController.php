@@ -73,10 +73,8 @@ class ProductsController extends Controller
             ];
         }*/
 
-        $obj = new stdClass;
-        $obj->itemsPerPage = 10;
-        //$params = (object) ['itemsPerPage' => 3];
-        $product = $this->itemService->searchItems('two', $obj);
+        $params = (object) ['itemsPerPage' => 3];
+        $product = $this->itemService->searchItems('two', $params, 1);
       //  return $this->response->json($products);
         echo 'tu saaaam';
     }
