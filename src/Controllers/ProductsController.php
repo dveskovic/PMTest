@@ -71,7 +71,7 @@ class ProductsController extends Controller
         $page = isset($page) ? $page : 0;
         $itemsPerPage = isset($itemsPerPage) ? $itemsPerPage : 10;
 
-        $response = $this->helper->getHttpPag($page, $itemsPerPage);
+        $response = $this->helper->getHttpPage($page, $itemsPerPage);
         $result = json_decode($response);
 
         if ($result['statusCode'] == 200) {
