@@ -74,7 +74,7 @@ class ProductsController extends Controller
         }*/
 
         $params = (object) ['itemsPerPage' => 3];
-        $product = $this->itemService->searchItems('two', $params, 1);
+        $product = $this->itemService->searchItems(null, $params, 1);
       //  return $this->response->json($products);
         echo 'tu saaaam';
     }
