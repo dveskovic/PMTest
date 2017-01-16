@@ -73,7 +73,7 @@ class ProductsController extends Controller
             ];
         }*/
 
-        $params = 3;
+        $params = (object) ['itemsPerPage' => 3];
         $product = $this->itemService->searchItems('', $params);
       //  return $this->response->json($products);
         echo 'tu saaaam';
