@@ -63,10 +63,10 @@ class ProductsController extends Controller
 
         // searchItems->searchItems
 
-        foreach ($productIds as $productId) {
+       // foreach ($productIds as $productId) {
            // $product = $this->itemService->getItem($productId);
-            $params['itemsPerPage'] = 2;
 
+            $params = json_encode(array('itemsPerPage' => 3));
             $products = $this->itemService->searchItems(null, $params);
 
         /*    $products[] = [
@@ -76,7 +76,7 @@ class ProductsController extends Controller
                 'image' => $this->itemService->getItemImage($product->itemBase->id),
                 'title' => $product->itemDescription->name1,
             ];*/
-        }
+      //  }
 
         return $this->response->json($products);
     }
