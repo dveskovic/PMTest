@@ -13,7 +13,6 @@ use Plenty\Plugin\Http\Response;
 use Plenty\Plugin\Http\Request;
 use IO\Services\ItemService;
 use Plenty\Modules\Plugin\Storage\Contracts;
-use Illuminate\Filesystem\Filesystem;
 
 
 /**
@@ -56,10 +55,7 @@ class DataController extends Controller
      */
     private $storage;
 
-    /**
-     * @var Filesystem
-     */
-    private $file;
+
 
     public function __construct(
         Response $response,
@@ -67,7 +63,6 @@ class DataController extends Controller
         ItemService $service,
         WebstoreHelper $storeHelper,
         Contracts\StorageRepositoryContract $storage,
-        Filesystem $file,
         Models\webstoreConfiguration $webstoreConfiguration)
     {
         $this->response = $response;
@@ -75,7 +70,6 @@ class DataController extends Controller
         $this->itemService = $service;
         $this->storeHelper = $storeHelper;
         $this->storage = $storage;
-        $this->file = $file;
         $this->storeConfiguration = $webstoreConfiguration;
     }
 
@@ -96,12 +90,12 @@ class DataController extends Controller
         //mkdir($directory, 0777, true);
         $results = array("name" => "testProduct", "color" => "red");
         $filename = $this->generateRandomString() . '.json';
-        $file = $directory . $filename;
+      //  $file = $directory . $filename;
         $fileContent = json_encode(array_values($results));
        // $this->storage->uploadFile('pmtest', $fileContent, $file, true, null);
 
         //Example
-        $this->file->put($directory,'Test26.json');
+       // $this->file->put($directory,'Test26.json');
 
 
         $test = ['test' => $directory];
