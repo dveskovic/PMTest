@@ -11,7 +11,6 @@ use Plenty\Modules\Plugin\DataBase\Contracts\DataBase;
  */
 class SettingsService
 {
-    const WEB_PROFILE = "yc_test";
     const CUSTOMER = "customer_id";
     const LICENCE = "license_key";
     const PLUGIN = "plugin_id";
@@ -21,24 +20,25 @@ class SettingsService
     const SEARCH = "search_enable";
     const PERFORMANCE = "performance";
     const LOG = "log_severity";
-    const TOKEN = "token";
+    const TOKEN = "auth_token";
+    const ENDPOINT = "endpoint";
 
 
     /**
      * @var array
      */
     private $settingsID = [
-        self::WEB_PROFILE => 1,
-        self::CUSTOMER => 2,
-        self::LICENCE => 3,
-        self::PLUGIN => 4,
-        self::DESIGN => 5,
-        self::TYPE => 6,
-        self::OVERWRITE => 7,
-        self::SEARCH => 8,
-        self::PERFORMANCE => 9,
-        self::LOG => 10,
-        self::TOKEN => 11,
+        self::CUSTOMER => 1,
+        self::LICENCE => 2,
+        self::PLUGIN => 3,
+        self::DESIGN => 4,
+        self::TYPE => 5,
+        self::OVERWRITE => 6,
+        self::SEARCH => 7,
+        self::PERFORMANCE => 8,
+        self::LOG => 9,
+        self::TOKEN => 10,
+        self::ENDPOINT => 11,
     ];
 
     /**
@@ -75,7 +75,7 @@ class SettingsService
         {
             $settings->id        = $this->settingsID[$name];
             $settings->name      = $name;
-            $settings->value     = (string) json_encode($value);
+            $settings->value     = (string) $value;
             $settings->createdAt = date('Y-m-d H:i:s');
             $settings->updatedAt = date('Y-m-d H:i:s');
 

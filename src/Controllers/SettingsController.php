@@ -3,9 +3,9 @@
 namespace PMTest\Controllers;
 
 use PMTest\Services\SettingsService;
+use PMTest\Helpers\Data;
 use Plenty\Plugin\Controller;
 use Plenty\Plugin\Http\Request;
-use PMTest\Helpers\Data;
 use Plenty\Modules\Helper\Services\WebstoreHelper;
 use Plenty\Plugin\Http\Response;
 
@@ -55,13 +55,21 @@ class SettingsController extends Controller
 
     /**
      * @param Request $request
-     * @return mixed|string
+     * @return \Plenty\Plugin\Http\Response;
+     * @throws \Exception
      */
     public function saveSettings(Request $request)
     {
+        $endpoint = $this->settingsService->getSettingsValue('endpoint');
         $configFields = [];
 
-        $configFields['yc_test'] = $request->get('yc_test');
+        /** @var \Plenty\Modules\System\Models\WebstoreConfiguration $webstoreConfig */
+        $webstoreConfig = $this->storeHelper->getCurrentWebstoreConfiguration();
+        if (is_null($webstoreConfig)) {
+            return $this->response->json('error');
+        }
+        $baseURL = $webstoreConfig->domain;
+
         $configFields['customer_id'] = $request->get('customer_id');
         $configFields['license_key'] = $request->get('license_key');
         $configFields['plugin_id'] = $request->get('plugin_id');
@@ -71,15 +79,21 @@ class SettingsController extends Controller
         $configFields['search_enable'] = $request->get('search_enable');
         $configFields['performance'] = $request->get('performance');
         $configFields['log_severity'] = $request->get('log_severity');
-        $configFields['token'] = $request->get('token');
+//        $configFields['auth_token'] = $request->get('auth_token');
+
+//        if (!$configFields['auth_token']) {
+//            return $this->response->json('Reset current Authorization token because token must not be empty!');
+//        }
+
+        if (!$endpoint || $endpoint != $baseURL) {
+            $configFields['endpoint'] = $baseURL;
+        }
+
 
 
         foreach ($configFields as $key => $value) {
             if(!empty($value)) {
                 switch ($key) {
-                    case 'yc_test':
-                        $this->settingsService->setSettingsValue('yc_test', $value);
-                        break;
                     case 'customer_id':
                         $this->settingsService->setSettingsValue('customer_id', $value);
                         break;
@@ -107,24 +121,17 @@ class SettingsController extends Controller
                     case 'log_severity':
                         $this->settingsService->setSettingsValue('log_severity', $value);
                         break;
-                    case 'token':
-                        $this->settingsService->setSettingsValue('token', $value);
+//                    case 'auth_token':
+//                        $this->settingsService->setSettingsValue('auth_token', $value);
+//                        break;
+                    case 'endpoint':
+                        $this->settingsService->setSettingsValue('endpoint', $value);
                         break;
                 }
             }
         }
 
-        $token = $request->get('token');
-        if (!$token) {
-            return 'Token must be set!';
-        }
 
-        /** @var \Plenty\Modules\System\Models\WebstoreConfiguration $webstoreConfig */
-        $webstoreConfig = $this->storeHelper->getCurrentWebstoreConfiguration();
-        if (is_null($webstoreConfig)) {
-            return 'error';
-        }
-        $baseURL = $webstoreConfig->domain;
         $customerId = $this->settingsService->getSettingsValue('customer_id');
         $licenseKey = $this->settingsService->getSettingsValue('license_key');
 
@@ -134,7 +141,7 @@ class SettingsController extends Controller
                 'pluginId' => $this->settingsService->getSettingsValue('plugin_id'),
                 'endpoint' => $baseURL,
                 'appKey' => '',
-                'appSecret' => $token,
+                'appSecret' => '',
             ],
             'frontend' => [
                 'design' => $this->settingsService->getSettingsValue('design'),
@@ -145,9 +152,14 @@ class SettingsController extends Controller
         ];
 
         $url = self::YOOCHOOSE_LICENSE_URL . $customerId . '/plugin/update?createIfNeeded=true&fallbackDesign=true';
+        $response = $this->helper->getHttpPage($url, $body, $customerId, $licenseKey);
+        $resault = json_decode($response);
 
-        return $this->helper->getHttpPage($url, $body, $customerId, $licenseKey);
-
+        if ($resault['statusCode'] == 200) {
+            return $this->response->json('User verification successful');
+        } else {
+            return $this->response->json('User is not verified!');
+        }
     }
 
     /**
@@ -156,7 +168,6 @@ class SettingsController extends Controller
     public function loadSettings()
     {
         $data = array(
-            'yc_test' => $this->settingsService->getSettingsValue('yc_test'),
             'customer_id' => $this->settingsService->getSettingsValue('customer_id'),
             'license_key' => $this->settingsService->getSettingsValue('license_key'),
             'plugin_id' => $this->settingsService->getSettingsValue('plugin_id'),
@@ -166,7 +177,8 @@ class SettingsController extends Controller
             'search_enable' => $this->settingsService->getSettingsValue('search_enable'),
             'performance' => $this->settingsService->getSettingsValue('performance'),
             'log_severity' => $this->settingsService->getSettingsValue('log_severity'),
-            'token' => $this->settingsService->getSettingsValue('token'),
+//            'auth_token' => $this->settingsService->getSettingsValue('auth_token'),
+            'endpoint' => $this->settingsService->getSettingsValue('endpoint'),
         );
         return $this->response->json($data);
     }

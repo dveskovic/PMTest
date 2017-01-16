@@ -14,14 +14,7 @@
             }
       ],
       "javaScriptFiles": [],
-      "require": [],
-      "dependencies" : {
-            "laravel/laravel":"*",
-            "illuminate/filesystem":"*"
-      },
-
       "runOnBuild": [
             "PMTest\\Migrations\\CreateSettingsTable"
       ]
-
 }
