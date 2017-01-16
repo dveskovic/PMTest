@@ -15,6 +15,7 @@ use IO\Services\ItemService;
 use Plenty\Modules\Plugin\Storage\Contracts;
 
 
+
 /**
  * Class ContentController
  * @package PMTest\Controllers
@@ -56,7 +57,6 @@ class DataController extends Controller
     private $storage;
 
 
-
     public function __construct(
         Response $response,
         Request $request,
@@ -90,12 +90,12 @@ class DataController extends Controller
         //mkdir($directory, 0777, true);
         $results = array("name" => "testProduct", "color" => "red");
         $filename = $this->generateRandomString() . '.json';
-      //  $file = $directory . $filename;
+        $file = $directory . $filename;
         $fileContent = json_encode(array_values($results));
        // $this->storage->uploadFile('pmtest', $fileContent, $file, true, null);
 
         //Example
-       // $this->file->put($directory,'Test26.json');
+     //   $this->file->put($directory,'Test26.json');
 
 
         $test = ['test' => $directory];
