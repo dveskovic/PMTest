@@ -5,6 +5,7 @@ use Plenty\Plugin\Controller;
 use Plenty\Plugin\Templates\Twig;
 use Plenty\Modules\Frontend\Services;
 use Plenty\Modules\System\Models;
+use Plenty\Modules\Account\Contracts\AccountRepositoryContract;
 
 use Plenty\Plugin\Http\Response;
 use Plenty\Plugin\Http\Request;
@@ -37,18 +38,24 @@ class ExportController extends Controller
      */
     private $storeConfiguration;
 
+	    /**
+     * @var AccountRepositoryContract
+     */
+    private $account;
 
 
     public function __construct(
         Response $response,
         Request $request,
         ItemService $service,
-        Models\webstoreConfiguration $webstoreConfiguration)
+        Models\webstoreConfiguration $webstoreConfiguration,
+		AccountRepositoryContract $account)
     {
         $this->response = $response;
         $this->request = $request;
         $this->itemService = $service;
         $this->storeConfiguration = $webstoreConfiguration;
+		$this->account = $account;
     }
 
     /**
