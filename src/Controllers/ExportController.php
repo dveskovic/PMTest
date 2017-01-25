@@ -9,7 +9,6 @@ use Plenty\Modules\System\Models;
 use Plenty\Plugin\Http\Response;
 use Plenty\Plugin\Http\Request;
 use IO\Services\ItemService;
-use Plenty\Modules\Account\Contracts\AccountRepositoryContract;
 
 /**
  * Class ContentController
@@ -38,24 +37,18 @@ class ExportController extends Controller
      */
     private $storeConfiguration;
 
-    /**
-     * @var AccountRepositoryContract
-     */
-    private $account;
 
 
     public function __construct(
         Response $response,
         Request $request,
         ItemService $service,
-        Models\webstoreConfiguration $webstoreConfiguration,
-        AccountRepositoryContract $account)
+        Models\webstoreConfiguration $webstoreConfiguration)
     {
         $this->response = $response;
         $this->request = $request;
         $this->itemService = $service;
         $this->storeConfiguration = $webstoreConfiguration;
-        $this->account = $account;
     }
 
     /**
@@ -68,7 +61,6 @@ class ExportController extends Controller
         $productIds = $this->request->get('productIds');
         $productIds = isset($productIds) ? explode(',', $productIds) : null;
         $storeConf = $this->storeConfiguration->toArray();
-
 
         foreach ($productIds as $productId) {
             $product = $this->itemService->getItem($productId);

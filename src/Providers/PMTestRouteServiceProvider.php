@@ -17,8 +17,7 @@ class PMTestRouteServiceProvider extends RouteServiceProvider
 	{
 		$router->get('hello', 'PMTest\Controllers\ContentController@sayHello');
 		$router->get('yc/export', 'PMTest\Controllers\ExportController@export');
-	
-		
+
 		//settings
 		$router->post('pmtest/settings/', 'PMTest\Controllers\SettingsController@saveSettings');
 		$router->get('pmtest/settings/', 'PMTest\Controllers\SettingsController@loadSettings');
