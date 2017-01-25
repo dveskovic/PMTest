@@ -46,7 +46,6 @@ class CustomersController extends Controller
      * Returning customer details
      *
      */
-
     public function customers()
     {
 
@@ -55,19 +54,15 @@ class CustomersController extends Controller
 
         $accounts = $this->account->allAccounts();
         foreach ($accounts as $ac){
-            $contacts = $this->account->getContactsOfAccount($ac->id);
-          foreach ($contacts['options'] as $con){
-              
-              echo $con;
-          }
-          /*  $data[] = [
+            $data[] = [
                 'id' => $ac->id,
                 'companyName' => $ac->companyName,
                 'taxIdNumber' => $ac->taxIdNumber,
-            ];*/
-
+            ];
+        $contacts = $this->account->getContactsOfAccount($ac->id);
+        $data[]['contacts'] = $contacts;
         }
 
-      //  return $this->response->json($data);
+        return $this->response->json($data);
     }
 }
