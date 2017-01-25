@@ -46,7 +46,7 @@ class CustomersController extends Controller
      * Returning customer details
      *
      */
-    public function customers()
+   public function customers()
     {
 
         $productIds = $this->request->get('productIds');
@@ -59,6 +59,8 @@ class CustomersController extends Controller
                 'companyName' => $ac->companyName,
                 'taxIdNumber' => $ac->taxIdNumber,
             ];
+        $contacts = $this->account->getContactsOfAccount($ac->id);
+        $data[]['contacts'] = $contacts;
         }
 
         return $this->response->json($data);
