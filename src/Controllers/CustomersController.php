@@ -54,14 +54,13 @@ class CustomersController extends Controller
 
         $accounts = $this->account->allAccounts();
         foreach ($accounts as $ac){
-            echo $ac;
-            $accounts[] = [
+            $data[] = [
                 'id' => $ac->id,
                 'companyName' => $ac->companyName,
                 'taxIdNumber' => $ac->taxIdNumber,
             ];
         }
 
-        return $this->response->json($accounts);
+        return $this->response->json($data);
     }
 }
