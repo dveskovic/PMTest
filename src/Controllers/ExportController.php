@@ -68,6 +68,11 @@ class ExportController extends Controller
         $productIds = $this->request->get('productIds');
         $productIds = isset($productIds) ? explode(',', $productIds) : null;
         $storeConf = $this->storeConfiguration->toArray();
+		
+		$accounts = $this->account->allAccounts();
+			foreach ($accounts as $ac){
+				echo $ac;
+			}
 
         foreach ($productIds as $productId) {
             $product = $this->itemService->getItem($productId);
