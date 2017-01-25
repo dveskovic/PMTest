@@ -60,7 +60,9 @@ class CustomersController extends Controller
                 'taxIdNumber' => $ac->taxIdNumber,
             ];
         $contacts = $this->account->getContactsOfAccount($ac->id);
-        $data[]['contacts'] = $contacts;
+    
+		$data[]['contacts'] = $contacts['options']->typeId;
+        $data[]['contacts'] = $contacts['options']->subTypeId;
         }
 
         return $this->response->json($data);
