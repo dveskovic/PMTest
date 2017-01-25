@@ -54,15 +54,19 @@ class CustomersController extends Controller
 
         $accounts = $this->account->allAccounts();
         foreach ($accounts as $ac){
+            $contacts = $this->account->getContactsOfAccount($ac->id);
+            if($contacts['options']['typeId'] == 2 && $contacts['options']['subTypeId'] == 4){
+                $email = $contacts['options']['value'];
+            }else{
+                $email = null;
+            }
             $data[] = [
                 'id' => $ac->id,
                 'companyName' => $ac->companyName,
                 'taxIdNumber' => $ac->taxIdNumber,
+                'address' => $email,
             ];
-        $contacts = $this->account->getContactsOfAccount($ac->id);
-    
-		$data[]['contacts'] = $contacts['options']->typeId;
-        $data[]['contacts'] = $contacts['options']->subTypeId;
+
         }
 
         return $this->response->json($data);
