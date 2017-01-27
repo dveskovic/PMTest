@@ -15,8 +15,13 @@ class PMTestRouteServiceProvider extends RouteServiceProvider
 	 */
 	public function map(Router $router)
 	{
-        $router->get('customers', 'PMTest\Controllers\CustomersController@customers');
+		$router->get('hello', 'PMTest\Controllers\ContentController@sayHello');
+		$router->get('yc/export', 'PMTest\Controllers\ExportController@export');
+		$router->get('customers', 'PMTest\Controllers\CustomersController@customers');
 
+		//settings
+		$router->post('pmtest/settings/', 'PMTest\Controllers\SettingsController@saveSettings');
+		$router->get('pmtest/settings/', 'PMTest\Controllers\SettingsController@loadSettings');
 	}
 
 }

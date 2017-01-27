@@ -1,0 +1,233 @@
+<!doctype html>
+<html>
+<head>
+    <title>Yoochoose Plugin</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <base href="/">
+    <style>
+        table{
+            width: auto;
+            border-width: 1px;
+            border-style: solid;
+            border-color: #d0d0d0;
+            font-size: 11px;
+            font-family: Verdana,Arial,sans-serif,Unicode MS;
+        }
+        td, th{
+            padding: 3px;
+        }
+        td{
+            width: auto;
+            border-width: 1px;
+            border-style: solid;
+            border-color: #d0d0d0;
+        }
+        .greyBackgroundYC{
+            background: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <table >
+        <tr>
+            <th>General</th>
+        </tr>
+        <tr>
+            <td class="greyBackgroundYC">If you don't have a Customer ID yet, please register a new Yoochoose account</td>
+            <td>
+                <button id="registerNewAccount">Register New Account</button>
+                <br>
+                For more information about pricing, data privacy and terms of service please visit the
+                <br>
+                <a href="https://www.yoochoose.com" target="_blank">Yoochoose website</a>
+            </td>
+        </tr>
+        <tr>
+            <td class="greyBackgroundYC">Customer ID</td>
+            <td><input id="customer_id" name="customer_id" type="text" /></td>
+        </tr>
+        <tr>
+            <td class="greyBackgroundYC">License Key</td>
+            <td>
+                <input id="license_key" name="license_key"  type="text" />
+                <br>
+                You can find your license key and detailed statistics on the
+                <a id="yc_licence_link" name="yc_licence_link" href="https://admin.yoochoose.net/" target="_blank">
+                    Yoochoose Configuration Backend</a>
+            </td>
+        </tr>
+        <tr>
+            <td class="greyBackgroundYC">Plugin ID</td>
+            <td>
+                <input id="plugin_id" name="plugin_id"  type="text" />
+                <br>
+                Optional field. If you have only one shop, please leave this field blank.
+            </td>
+        </tr>
+        <tr>
+            <td class="greyBackgroundYC">EndPoint</td>
+            <td><input id="endpoint" name="endpoint" type="text" disabled /></td>
+        </tr>
+        <tr>
+            <td class="greyBackgroundYC">Design</td>
+            <td>
+                <input id="design" name="design" type="text" disabled />
+                <br>
+                We will try to find a design template for your shop. If you need to customize the
+                <br>
+                Recommendations design, please read the
+                <a href="https://www.yoochoose.com/PlentyMarkets-connect-tutorial" target="_blank">
+                    PlentyMarkets Connect Extention Tutorial</a>
+            </td>
+        </tr>
+        <tr>
+            <td class="greyBackgroundYC">Item Type</td>
+            <td>
+                <input id="item_type" name="item_type" type="text"/>
+                <br>
+                In most cases the item type must be set to 1. If more than one type is needed or if more than
+                <br>
+                one shop language is supported, please read the <a href="http://doc.yoochoose.net/" target="_blank">User Guide</a>.
+            </td>
+        </tr>
+        <tr>
+            <td class="greyBackgroundYC">Log Severity</td>
+            <td>
+                <select id="log_severity" name="log_severity">
+                    <option value="1" selected="selected">Debug</option>
+                    <option value="2">Info</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th>Script Endpoint</th>
+        </tr>
+        <tr>
+            <td class="greyBackgroundYC">Performance</td>
+            <td>
+                <select id="performance" name="performance">
+                    <option value="1">Load scripts from the Amazon content delivery network (CDN)</option>
+                    <option value="2" selected="selected">Load scripts directly from Yoochoose server</option>
+                </select>
+                <br>
+                CDN mode delivers better performance but takes about 30 minutes to update if the
+                <br>
+                configuration is changed. Please switch to CDN only if the configuration is finished and stable.
+            </td>
+        </tr>
+        <tr>
+            <td class="greyBackgroundYC">Overwrite Endpoint</td>
+            <td>
+                <input id="script_id" name="script_id" type="text" />
+                <br>
+                This option is used mostly during development phase.
+            </td>
+        </tr>
+        <tr>
+            <th>Yoochoose Search Box</th>
+        </tr>
+        <tr>
+            <td class="greyBackgroundYC">Use the Yoochoose search box:<br/>(recommended)</td>
+            <td>
+                <select id="search_enable" name="search_enable">
+                    <option value="2">No</option>
+                    <option value="1" selected="selected">Yes</option>
+                </select>
+                Select this option to use the Yoochoose search box instead of the standard Magento search box.
+                <br>
+                Benefit from a cloud-based, high-performance search engine with "self-learning"
+                <br>
+                recommendation capability.
+            </td>
+        </tr>
+        <tr>
+            <th>Yoochoose Search Box</th>
+        </tr>
+        <!--<tr>-->
+            <!--<td class="greyBackgroundYC">Authorization Token</td>-->
+            <!--<td>-->
+                <!--<input id="auth_token" name="auth_token" type="text" disabled />-->
+                <!--This token is used for API authentication.-->
+            <!--</td>-->
+        <!--</tr>-->
+        <!--<tr>-->
+            <!--<td class="greyBackgroundYC">Reset Token</td>-->
+            <!--<td><button id="reset_token" name="reset_token" onclick="ycAuthTokenReset()">Reset Authorization Token</button></td>-->
+        <!--</tr>-->
+        <tr>
+            <td class="greyBackgroundYC">Save</td>
+            <td><button id="save_config" name="save_config">Save Config</button></td>
+        </tr>
+    </table>
+</body>
+<script type="text/javascript">
+    (function () {
+        test();
+        document.getElementById('save_config').onclick = function () {
+            var http = new XMLHttpRequest();
+            var url = "/pmtest/settings?";
+            var customerId = document.getElementById('customer_id').value;
+            var licenseKey = document.getElementById('license_key').value;
+            var pluginId = document.getElementById('plugin_id').value;
+            var itemType = document.getElementById('item_type').value;
+            var scriptId = document.getElementById('script_id').value;
+            var searchEnable = document.getElementById('search_enable').value;
+            var performance = document.getElementById('performance').value;
+            var logSeverity = document.getElementById('log_severity').value;
+//           var token = document.getElementById('auth_token').value;
+
+            var params = "customer_id="+customerId+"&license_key="+licenseKey+"&plugin_id="+pluginId+"&item_type="
+                    +itemType+"&script_id="+scriptId+"&search_enable="+searchEnable+"&performance="+performance
+                    +"&log_severity="+logSeverity;
+            http.open("POST", url+params, true);
+
+            //Send the proper header information along with the request
+            http.setRequestHeader("Content-type", "application/json");
+
+            http.onreadystatechange = function() {
+                if(http.readyState == 4 && http.status == 200) {
+                    test();
+                }
+            };
+            http.send(params);
+        };
+    }());
+    function test() {
+        var http = new XMLHttpRequest();
+        var url = "/pmtest/settings/";
+        http.open("GET", url, true);
+
+        http.onreadystatechange = function () {
+            if (http.readyState == 4 && http.status == 200) {
+                var response = JSON.parse(http.responseText);
+
+                document.getElementById('customer_id').value = response.customer_id;
+                document.getElementById('license_key').value = response.license_key;
+                document.getElementById('plugin_id').value = response.plugin_id;
+                document.getElementById('item_type').value = response.item_type;
+                document.getElementById('script_id').value = response.script_id;
+                document.getElementById('search_enable').value = response.search_enable;
+                document.getElementById('performance').value = response.performance;
+                document.getElementById('log_severity').value = response.log_severity;
+//                    document.getElementById('auth_token').value = response.auth_token;
+                document.getElementById('endpoint').value = response.endpoint;
+                document.getElementById('design').value = response.design;
+            }
+        };
+        http.send();
+    };
+//    function ycAuthTokenReset() {
+//        var authToken = document.getElementById('yoochoose_auth_auth_token');
+//        var text = '';
+//        var possible = 'abcdefghijklmnopqrstuvwxyz0123456789';
+//
+//        for (var i = 0; i < 32; i++) {
+//            text += possible.charAt(Math.floor(Math.random() * possible.length));
+//        }
+//
+//        authToken.value = text;
+//        document.getElementById('ycAuthHidden').style.display = 'block';
+//    }
+</script>
+</html>
