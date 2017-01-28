@@ -35,12 +35,12 @@ class CustomersController extends ApiResource
         $this->account = $account;
     }
 
-     /**
-     * @return BaseResponse
-     */
-	public function index():BaseResponse
+	
+	public function customers()
 	{
+		$test = 'test';
+		$data = $this->show($test);
+		return $data;
 		
-		return $this->response->create(null, $this->defaultCode);
 	}
 }
