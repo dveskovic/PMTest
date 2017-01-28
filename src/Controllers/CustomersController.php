@@ -40,8 +40,7 @@ class CustomersController extends ApiResource
      */
 	public function index():BaseResponse
 	{
-		$niz = 'tu sam';
 		
-		return $this->response->create($niz, $this->defaultCode);
+		return $this->response->create(null, $this->defaultCode);
 	}
 }
