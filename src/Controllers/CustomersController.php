@@ -9,7 +9,7 @@ use Plenty\Plugin\Http\Response;
 use Plenty\Plugin\Http\Request;
 use IO\Api\ApiResource;
 use IO\Api\ApiResponse;
-use Illuminate\Auth\TokenGuard;
+use \Illuminate\Auth\TokenGuard;
 
 
 /**
