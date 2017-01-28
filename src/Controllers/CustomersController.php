@@ -57,6 +57,6 @@ class CustomersController extends ApiResource
         $data[]['contacts'] = $contacts;
         }
 
-        return $this->response->create($data, $this->OK);
+        return $this->response->create($data, $this->defaultCode);
     }
 }
