@@ -1,25 +1,30 @@
 <?php
 namespace PMTest\Controllers;
 
-//use Plenty\Plugin\Controller;
+use Plenty\Plugin\Controller;
+use Plenty\Modules\Frontend\Services;
+use Plenty\Modules\System\Models;
 use Plenty\Modules\Account\Contracts\AccountRepositoryContract;
-use Symfony\Component\HttpFoundation\Response as BaseResponse;
-use IO\Api\ApiResource;
-use IO\Api\ApiResponse;
+use Plenty\Plugin\Http\Response;
+use Plenty\Plugin\Http\Request;
 
 
 /**
  * Class CustomersController
  * @package PMTest\Controllers
  */
-class CustomersController extends ApiResource
+class CustomersController extends Controller
 {
 
     /**
-     * @var null|ApiResponse
+     * @var null|Response
      */
     private $response;
 
+    /**
+     * @var Response
+     */
+    private $request;
 
     /**
      * @var AccountRepositoryContract
@@ -28,21 +33,22 @@ class CustomersController extends ApiResource
 
 
     public function __construct(
-        ApiResponse $response,
+        Response $response,
+        Request $request,
         AccountRepositoryContract $account)
     {
         $this->response = $response;
+        $this->request = $request;
         $this->account = $account;
     }
 
     /**
-     * @param string $selector
-     * @return BaseResponse
+     * Returning customer details
+     *
      */
-    public function show(string $selector):BaseResponse
+    public function customers()
     {
 
-        $data = [];
         $productIds = $this->request->get('productIds');
         $productIds = isset($productIds) ? explode(',', $productIds) : null;
 
@@ -53,10 +59,10 @@ class CustomersController extends ApiResource
                 'companyName' => $ac->companyName,
                 'taxIdNumber' => $ac->taxIdNumber,
             ];
-        $contacts = $this->account->getContactsOfAccount($ac->id);
-        $data[]['contacts'] = $contacts;
+            $contacts = $this->account->getContactsOfAccount($ac->id);
+            $data[]['contacts'] = $contacts;
         }
 
-        return $this->response->create($data, $this->OK);
+        return $this->response->json($data);
     }
 }
