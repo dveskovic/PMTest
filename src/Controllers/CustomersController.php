@@ -1,7 +1,7 @@
 <?php
 namespace PMTest\Controllers;
 
-//use Plenty\Plugin\Controller;
+use Plenty\Plugin\Controller;
 use Plenty\Modules\Account\Contracts\AccountRepositoryContract;
 use Symfony\Component\HttpFoundation\Response as BaseResponse;
 
