@@ -15,7 +15,7 @@ use IO\Api\ApiResponse;
  * Class CustomersController
  * @package PMTest\Controllers
  */
-class CustomersController extends ApiResource
+class CustomersController extends Controller
 {
 
 
@@ -34,15 +34,32 @@ class CustomersController extends ApiResource
      */
     private $account;
 
+    /**
+     * @var ApiResource
+     */
+    private $apiResource;
+
+    /**
+     * @var ApiResponse
+     */
+    private $apiResponse;
+
+
+
 
     public function __construct(
         Response $response,
         Request $request,
+        ApiResource $apiResource,
+        ApiResponse $apiResponse,
         AccountRepositoryContract $account)
     {
         $this->response = $response;
         $this->request = $request;
         $this->account = $account;
+        $this->apiResource = $apiResource;
+        $this->apiResponse = $apiResponse;
+
     }
 
     /**
@@ -52,6 +69,7 @@ class CustomersController extends ApiResource
     public function customers()
     {
 
+        $test = $this->apiResource->index();
         $productIds = $this->request->get('productIds');
         $productIds = isset($productIds) ? explode(',', $productIds) : null;
 
