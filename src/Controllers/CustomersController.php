@@ -38,8 +38,8 @@ class CustomersController extends ApiResource
 	
 	public function customers()
 	{
-		$test = 'test';
-		$data = $this->show($test);
+		$data = 'test';
+	
 		return $data;
 		
 	}
