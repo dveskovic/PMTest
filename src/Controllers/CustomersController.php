@@ -16,7 +16,7 @@ class CustomersController extends ApiResource
 {
 
     /**
-     * @var null|ApiResponse
+     * @var ApiResponse
      */
     private $response;
 
