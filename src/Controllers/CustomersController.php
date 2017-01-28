@@ -7,14 +7,17 @@ use Plenty\Modules\System\Models;
 use Plenty\Modules\Account\Contracts\AccountRepositoryContract;
 use Plenty\Plugin\Http\Response;
 use Plenty\Plugin\Http\Request;
+use IO\Api\ApiResource;
+use IO\Api\ApiResponse;
 
 
 /**
  * Class CustomersController
  * @package PMTest\Controllers
  */
-class CustomersController extends Controller
+class CustomersController extends ApiResource
 {
+
 
     /**
      * @var null|Response
