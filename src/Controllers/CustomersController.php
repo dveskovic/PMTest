@@ -35,28 +35,12 @@ class CustomersController extends ApiResource
         $this->account = $account;
     }
 
-    /**
-     * @param string $selector
-     * @return BaseResponse
-     */
-    public function show(string $selector):BaseResponse
+    public function show()
     {
 
-        $data = [];
-        $productIds = $this->request->get('productIds');
-        $productIds = isset($productIds) ? explode(',', $productIds) : null;
+        $data = 'tu sam';
+  
 
-        $accounts = $this->account->allAccounts();
-        foreach ($accounts as $ac){
-            $data[] = [
-                'id' => $ac->id,
-                'companyName' => $ac->companyName,
-                'taxIdNumber' => $ac->taxIdNumber,
-            ];
-        $contacts = $this->account->getContactsOfAccount($ac->id);
-        $data[]['contacts'] = $contacts;
-        }
-
-        return $this->response->create($data, $this->defaultCode);
+        return $data;
     }
 }
