@@ -2,8 +2,11 @@
 namespace PMTest\Controllers;
 
 use Plenty\Plugin\Controller;
+use Plenty\Modules\Frontend\Services;
+use Plenty\Modules\System\Models;
 use Plenty\Modules\Account\Contracts\AccountRepositoryContract;
-use Symfony\Component\HttpFoundation\Response as BaseResponse;
+use Plenty\Plugin\Http\Response;
+use Plenty\Plugin\Http\Request;
 
 
 /**
@@ -13,8 +16,15 @@ use Symfony\Component\HttpFoundation\Response as BaseResponse;
 class CustomersController extends Controller
 {
 
- 
+    /**
+     * @var null|Response
+     */
+    private $response;
 
+    /**
+     * @var Response
+     */
+    private $request;
 
     /**
      * @var AccountRepositoryContract
@@ -23,19 +33,36 @@ class CustomersController extends Controller
 
 
     public function __construct(
-     
+        Response $response,
+        Request $request,
         AccountRepositoryContract $account)
     {
-      
+        $this->response = $response;
+        $this->request = $request;
         $this->account = $account;
     }
 
-	
-	public function customers()
-	{
-		$data = 'test';
-	
-		return $data;
-		
-	}
+    /**
+     * Returning customer details
+     *
+     */
+    public function customers()
+    {
+
+        $productIds = $this->request->get('productIds');
+        $productIds = isset($productIds) ? explode(',', $productIds) : null;
+
+        $accounts = $this->account->allAccounts();
+        foreach ($accounts as $ac){
+            $data[] = [
+                'id' => $ac->id,
+                'companyName' => $ac->companyName,
+                'taxIdNumber' => $ac->taxIdNumber,
+            ];
+        $contacts = $this->account->getContactsOfAccount($ac->id);
+        $data[]['contacts'] = $contacts;
+        }
+
+        return $this->response->json($data);
+    }
 }
