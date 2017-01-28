@@ -84,6 +84,6 @@ class CustomersController extends Controller
         $data[]['contacts'] = $contacts;
         }
 
-        return $this->response->json($data);
+        return $test;
     }
 }
