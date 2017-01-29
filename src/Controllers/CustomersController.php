@@ -16,7 +16,6 @@ use Plenty\Plugin\Http\Request;
 class CustomersController extends Controller
 {
 
-
     /**
      * @var null|Response
      */
@@ -33,7 +32,6 @@ class CustomersController extends Controller
     private $account;
 
 
-
     public function __construct(
         Response $response,
         Request $request,
@@ -42,8 +40,6 @@ class CustomersController extends Controller
         $this->response = $response;
         $this->request = $request;
         $this->account = $account;
-   
-
     }
 
     /**
@@ -53,8 +49,6 @@ class CustomersController extends Controller
     public function customers()
     {
 
-
-      
         $productIds = $this->request->get('productIds');
         $productIds = isset($productIds) ? explode(',', $productIds) : null;
 
@@ -69,6 +63,6 @@ class CustomersController extends Controller
         $data[]['contacts'] = $contacts;
         }
 
-    
+        return $this->response->json($data);
     }
 }
