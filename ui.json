@@ -5,7 +5,7 @@
     {
       "label": "PMTest",
       "menu": "start",
-      "urlKey": "hello-world",
+      "urlKey": "pm-test",
       "entryPoint": "index.html"
     }
   ]

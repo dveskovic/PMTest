@@ -56,7 +56,6 @@ class CustomersController extends Controller
         foreach ($accounts as $ac){
             $data[] = [
                 'id' => $ac->id,
-				'number' => $ac->number,
                 'companyName' => $ac->companyName,
                 'taxIdNumber' => $ac->taxIdNumber,
             ];
