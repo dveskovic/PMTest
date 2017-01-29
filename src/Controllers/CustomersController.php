@@ -51,7 +51,7 @@ class CustomersController extends Controller
 
         $result = '';
         $group = $this->request->get('group');
-       
+
 
         $accounts = $this->account->allAccounts();
         foreach ($accounts as $a){
@@ -63,10 +63,10 @@ class CustomersController extends Controller
         $contacts = $this->account->getContactsOfAccount($a->id);
             foreach ($contacts as $contact){
                 if($contact['typeId'] == $group){
-                    $result = 'tu sam';
+                    $result[] = $contact;
                 }
             }
-            
+
         }
 
         return $this->response->json($result);
