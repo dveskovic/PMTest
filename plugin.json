@@ -5,6 +5,16 @@
       "author":"Test",
       "type":"template",
       "version": "1.0.0",
+      "serviceProvider":"PMTest\\Providers\\PMTestServiceProvider",
+      "dataProviders": [
+            {
+            "key":"PMTest\\Providers\\PMTestServiceDataProvider",
+            "name":"Y Tracking",
+            "description": "Y Tracking"
+            }
+      ],
       "javaScriptFiles": [],
-      "runOnBuild": []
+      "runOnBuild": [
+            "PMTest\\Migrations\\CreateSettingsTable"
+      ]
 }
