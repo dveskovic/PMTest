@@ -48,7 +48,7 @@ class CustomersController extends Controller
      */
     public function customers()
     {
-
+        $result = '';
         $productIds = $this->request->get('productIds');
         $productIds = isset($productIds) ? explode(',', $productIds) : null;
 
@@ -60,7 +60,7 @@ class CustomersController extends Controller
                 'taxIdNumber' => $a->taxIdNumber,
             ];
         $contacts = $this->account->getContactsOfAccount($a->id);
-        $result = array_merge($data, $contacts);
+        $result = $data+$contacts;
         }
 
         return $this->response->json($result);
