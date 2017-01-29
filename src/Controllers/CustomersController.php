@@ -49,9 +49,9 @@ class CustomersController extends Controller
     public function customers()
     {
 
-        $data = null;
+        $result = '';
         $group = $this->request->get('group');
-        $groupId = isset($group) ? $group : null;
+       
 
         $accounts = $this->account->allAccounts();
         foreach ($accounts as $a){
@@ -61,10 +61,14 @@ class CustomersController extends Controller
                 'taxIdNumber' => $a->taxIdNumber,
             ];
         $contacts = $this->account->getContactsOfAccount($a->id);
-
-        $data[]['contacts'] = $contacts;
+            foreach ($contacts as $contact){
+                if($contact['typeId'] == $group){
+                    $result = 'tu sam';
+                }
+            }
+            
         }
 
-        return $this->response->json($contacts);
+        return $this->response->json($result);
     }
 }
