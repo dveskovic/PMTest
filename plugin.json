@@ -9,8 +9,8 @@
       "dataProviders": [
             {
             "key":"PMTest\\Providers\\PMTestServiceDataProvider",
-            "name":"Y Tracking",
-            "description": "Y Tracking"
+            "name":"N2GO",
+            "description": "N2GO"
             }
       ],
       "javaScriptFiles": [],
