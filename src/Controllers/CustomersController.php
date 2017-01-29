@@ -56,6 +56,7 @@ class CustomersController extends Controller
         foreach ($accounts as $ac){
             $data[] = [
                 'id' => $ac->id,
+				'number' => $ac->number,
                 'companyName' => $ac->companyName,
                 'taxIdNumber' => $ac->taxIdNumber,
             ];
@@ -63,6 +64,6 @@ class CustomersController extends Controller
         $data[]['contacts'] = $contacts;
         }
 
-        return $this->response->json($accounts);
+        return $this->response->json($data);
     }
 }
