@@ -53,16 +53,16 @@ class CustomersController extends Controller
         $productIds = isset($productIds) ? explode(',', $productIds) : null;
 
         $accounts = $this->account->allAccounts();
-        foreach ($accounts as $ac){
+        foreach ($accounts as $a){
             $data[] = [
-                'id' => $ac->id,
-                'companyName' => $ac->companyName,
-                'taxIdNumber' => $ac->taxIdNumber,
+                'id' => $a->id,
+                'companyName' => $a->companyName,
+                'taxIdNumber' => $a->taxIdNumber,
             ];
-        $contacts = $this->account->getContactsOfAccount($ac->id);
-        $data[]['contacts'] = $contacts;
+        $contacts = $this->account->getContactsOfAccount($a->id);
+        $result = array_merge($data, $contacts);
         }
 
-        return $this->response->json($accounts);
+        return $this->response->json($result);
     }
 }
