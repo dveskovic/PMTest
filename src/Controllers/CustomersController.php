@@ -7,9 +7,6 @@ use Plenty\Modules\System\Models;
 use Plenty\Modules\Account\Contracts\AccountRepositoryContract;
 use Plenty\Plugin\Http\Response;
 use Plenty\Plugin\Http\Request;
-use IO\Api\ApiResource;
-use IO\Api\ApiResponse;
-use \Illuminate\Auth\TokenGuard;
 
 
 /**
@@ -35,37 +32,17 @@ class CustomersController extends Controller
      */
     private $account;
 
-    /**
-     * @var ApiResource
-     */
-    private $apiResource;
-
-    /**
-     * @var ApiResponse
-     */
-    private $apiResponse;
-
-    /**
-     * @var TokenGuard
-     */
-    private $token;
-
 
 
     public function __construct(
         Response $response,
         Request $request,
-        ApiResource $apiResource,
-        ApiResponse $apiResponse,
-        TokenGuard $token,
         AccountRepositoryContract $account)
     {
         $this->response = $response;
         $this->request = $request;
         $this->account = $account;
-        $this->apiResource = $apiResource;
-        $this->apiResponse = $apiResponse;
-        $this->token = $token;
+   
 
     }
 
@@ -77,8 +54,7 @@ class CustomersController extends Controller
     {
 
 
-        $test1 = $this->token->authenticate();
-        $test = $this->apiResource->index();
+      
         $productIds = $this->request->get('productIds');
         $productIds = isset($productIds) ? explode(',', $productIds) : null;
 
@@ -93,6 +69,6 @@ class CustomersController extends Controller
         $data[]['contacts'] = $contacts;
         }
 
-        return $test1;
+    
     }
 }
