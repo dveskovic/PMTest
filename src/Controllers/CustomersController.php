@@ -65,9 +65,7 @@ class CustomersController extends Controller
         if (isset($subscribed) && isset($group) == false && $subscribed == 'true'){
             $param = 4;
         }
-        if (isset($subscribed) && isset($group) == false && $subscribed == 'false'){
-            $param = 5;
-        }
+      
 
         $accounts = $this->account->allAccounts();
         foreach ($accounts as $a){
@@ -94,11 +92,6 @@ class CustomersController extends Controller
                         break;
                     case 4:
                         if($contact['newsletterAllowanceAt'] != null){
-                            $result[] = $contact;
-                        }
-                        break;
-                    case 5:
-                        if($contact['newsletterAllowanceAt'] == null){
                             $result[] = $contact;
                         }
                         break;
