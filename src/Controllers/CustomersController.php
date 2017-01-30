@@ -53,7 +53,7 @@ class CustomersController extends Controller
         $group = $this->request->get('group');
         $subscribed = $this->request->get('subscribed');
 
-        if (isset($group)){
+        if (isset($group) && isset($subscribed) == false){
             $param = 1;
         }
         if (isset($group) && isset($subscribed) && $subscribed == true){
