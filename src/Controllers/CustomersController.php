@@ -56,14 +56,11 @@ class CustomersController extends Controller
         if (isset($group) && isset($subscribed) == false){
             $param = 1;
         }
-        if (isset($group) && isset($subscribed) && $subscribed == 'true'){
+        if (isset($group) && isset($subscribed)){
             $param = 2;
         }
-        if (isset($group) && isset($subscribed) && $subscribed == 'false'){
-            $param = 3;
-        }
         if (isset($subscribed) && isset($group) == false){
-            $param = 4;
+            $param = 3;
         }
 
         $accounts = $this->account->allAccounts();
@@ -80,26 +77,13 @@ class CustomersController extends Controller
                         }
                         break;
                     case 2:
-                        if($contact['typeId'] == $group && $contact['newsletterAllowanceAt'] != null){
+                        if($contact['typeId'] == $group && $subscribed == 'true' && $contact['newsletterAllowanceAt'] != null){
                             $result[] = $contact;
-                        }
-                        else{
-                            $result = (array) null;
                         }
                         break;
                     case 3:
-                        if($contact['typeId'] == $group && $contact['newsletterAllowanceAt'] == null){
-                            $result[] = $contact;
-                        }
-                        else{
-                            $result = (array) null;
-                        }
-                        break;
-                    case 4:
                         if($subscribed == 'true' && $contact['newsletterAllowanceAt'] != null){
                             $result[] = $contact;
-                        }else{
-                            $result = (array) null;
                         }
                         break;
                     default:
