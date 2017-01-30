@@ -56,7 +56,7 @@ class CustomersController extends Controller
         if (isset($group)){
             $param = 1;
         }
-        if (isset($group) && isset($subscribed) && $subscribed == true){
+        if (isset($group) && isset($subscribed) && $subscribed === true){
             $param = 2;
         }
 
