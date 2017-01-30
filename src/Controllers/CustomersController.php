@@ -49,6 +49,7 @@ class CustomersController extends Controller
     public function customers()
     {
         $result = '';
+		$r = '';
         $group = $this->request->get('group');
 		
 
