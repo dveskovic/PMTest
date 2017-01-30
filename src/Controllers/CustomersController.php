@@ -90,8 +90,6 @@ class CustomersController extends Controller
                     case 3:
                         if($contact['typeId'] == $group && $contact['newsletterAllowanceAt'] == null) {
                             $result[] = $contact;
-                        }else{
-                            $result = (array) null;
                         }
                         break;
                     case 4:
@@ -102,8 +100,6 @@ class CustomersController extends Controller
                     case 5:
                         if($contact['newsletterAllowanceAt'] == null){
                             $result[] = $contact;
-                        }else{
-                            $result = (array) null;
                         }
                         break;
                     default:
