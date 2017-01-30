@@ -56,10 +56,10 @@ class CustomersController extends Controller
         if (isset($group) && isset($subscribed) == false){
             $param = 1;
         }
-        if (isset($group) && isset($subscribed) && $subscribed == 'true'){
+        if (isset($group) && isset($subscribed)){
             $param = 2;
         }
-        if (isset($subscribed) && $subscribed == 'true' && isset($group) == false){
+        if (isset($subscribed) && isset($group) == false){
             $param = 3;
         }
 
@@ -77,14 +77,14 @@ class CustomersController extends Controller
                         }
                         break;
                     case 2:
-                        if($contact['typeId'] == $group && $contact['newsletterAllowanceAt'] != null){
+                        if($contact['typeId'] == $group && $subscribed == 'true' && $contact['newsletterAllowanceAt'] != null){
                             $result[] = $contact;
                         }else{
                             $result = '';
                         }
                         break;
                     case 3:
-                        if($contact['newsletterAllowanceAt'] != null){
+                        if($subscribed == 'true' && $contact['newsletterAllowanceAt'] != null){
                             $result[] = $contact;
                         }else{
                             $result = '';
