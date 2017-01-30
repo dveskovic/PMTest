@@ -50,6 +50,7 @@ class CustomersController extends Controller
     {
         $result = '';
         $group = $this->request->get('group');
+		$subscribed = $this->request->get('subscribed');
 
         $accounts = $this->account->allAccounts();
         foreach ($accounts as $a){
@@ -59,7 +60,7 @@ class CustomersController extends Controller
                 $contact['taxIdNumber'] = $a->taxIdNumber;
                 if (isset($group)) {
                     if($contact['typeId'] == $group){
-                        $result[] = $contact;
+						$result[] = (isset($subscribed) && $subscribed == true && $contact['newsletterAllowanceAt'] != null) ? $contact : $contact ;
                     }
                 }else{
                     $result[] = $contact;
