@@ -47,23 +47,32 @@ class CustomersController extends Controller
      *
      */
     public function customers()
-	
     {
         $result = '';
+        $param = '';
         $group = $this->request->get('group');
-		
+        $subscribed = $this->request->get('subscribed');
+
+        if (isset($group)){
+            $param = 1;
+        }
+        
         $accounts = $this->account->allAccounts();
         foreach ($accounts as $a){
         $contacts = $this->account->getContactsOfAccount($a->id);
             foreach ($contacts as $contact){
                 $contact['companyName'] = $a->companyName;
                 $contact['taxIdNumber'] = $a->taxIdNumber;
-                if (isset($group)) {
-                    if($contact['typeId'] == $group){
-						$result[] = $contact;
-                    }
-                }else{
-                    $result[] = $contact;
+
+                switch ($param) {
+                    case 1:
+                        if($contact['typeId'] == $group){
+                            $result[] = $contact;
+                        }
+                        break;
+                    default:
+                        $result[] = $contact;
+                        break;
                 }
             }
         }
@@ -71,3 +80,5 @@ class CustomersController extends Controller
         return $this->response->json($result);
     }
 }
+
+
