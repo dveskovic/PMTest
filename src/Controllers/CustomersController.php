@@ -80,9 +80,6 @@ class CustomersController extends Controller
                         if($contact['typeId'] == $group && $subscribed == 'true' && $contact['newsletterAllowanceAt'] != null){
                             $result[] = $contact;
                         }
-                        if($contact['typeId'] == $group && $subscribed == 'false' && $contact['newsletterAllowanceAt'] == null){
-                            $result[] = $contact;
-                        }
                         else{
                             $result = (array) null;
                         }
