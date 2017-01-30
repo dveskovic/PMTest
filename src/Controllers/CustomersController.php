@@ -60,7 +60,11 @@ class CustomersController extends Controller
                 $contact['taxIdNumber'] = $a->taxIdNumber;
                 if (isset($group)) {
                     if($contact['typeId'] == $group){
-						$result[] = (isset($subscribed) && $subscribed == true && $contact['newsletterAllowanceAt'] != null) ? $contact : '' ;
+						if(isset($subscribed) && $subscribed == true && $contact['newsletterAllowanceAt'] != null){
+							  $result[] = $contact;
+						}else{
+							  $result[] = $contact;
+						}
                     }
                 }else{
                     $result[] = $contact;
