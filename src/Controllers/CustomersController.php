@@ -65,10 +65,9 @@ class CustomersController extends Controller
         if (isset($subscribed) && isset($group) == false && $subscribed == 'true'){
             $param = 4;
         }
-		if (isset($subscribed) && isset($group) == false && $subscribed == 'false'){
+      /*  if (isset($subscribed) && isset($group) == false && $subscribed == 'false'){
             $param = 5;
-        }
-      
+        }*/
 
         $accounts = $this->account->allAccounts();
         foreach ($accounts as $a){
@@ -89,8 +88,10 @@ class CustomersController extends Controller
                         }
                         break;
                     case 3:
-                        if($contact['typeId'] == $group && $contact['newsletterAllowanceAt'] == null) {
+                        if($contact['typeId'] == $group) {
                             $result[] = $contact;
+                        }else{
+                            $result = (array) null;
                         }
                         break;
                     case 4:
@@ -98,11 +99,13 @@ class CustomersController extends Controller
                             $result[] = $contact;
                         }
                         break;
-					case 5:
-                        if($contact['newsletterAllowanceAt'] == null){
+                 /*   case 5:
+                        if($contact['newsletterAllowanceAt'] == 'null'){
                             $result[] = $contact;
+                        }else{
+                            $result = (array) null;
                         }
-                        break;
+                        break;*/
                     default:
                         $result[] = $contact;
                         break;
