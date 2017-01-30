@@ -56,7 +56,10 @@ class CustomersController extends Controller
         if (isset($group)){
             $param = 1;
         }
-        
+        if (isset($group) && isset($subscribed) && $subscribed == true){
+            $param = 2;
+        }
+
         $accounts = $this->account->allAccounts();
         foreach ($accounts as $a){
         $contacts = $this->account->getContactsOfAccount($a->id);
@@ -68,6 +71,13 @@ class CustomersController extends Controller
                     case 1:
                         if($contact['typeId'] == $group){
                             $result[] = $contact;
+                        }
+                        break;
+                    case 2:
+                        if($contact['typeId'] == $group && $contact['newsletterAllowanceAt'] != null){
+                            $result[] = $contact;
+                        }else{
+                            $result = '';
                         }
                         break;
                     default:
