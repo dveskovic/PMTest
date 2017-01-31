@@ -112,7 +112,10 @@ class CustomersController extends Controller
             }
         }
 
-        return $this->response->json($emails);
+		foreach ($emails as $e){
+			$r[] = $e;
+		} 
+        return $this->response->json($r);
     }
 }
 
