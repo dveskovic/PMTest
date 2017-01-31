@@ -52,9 +52,9 @@ class CustomersController extends Controller
         $param = '';
         $group = $this->request->get('group');
         $subscribed = $this->request->get('subscribed');
-		$emails = $this->request->get('emails');
-	    $emails = json_decode($emails, true);
-	
+        $emails = $this->request->get('emails');
+        $emails = json_decode($emails, true);
+
 
         if (isset($group) && isset($subscribed) == false){
             $param = 1;
@@ -71,13 +71,13 @@ class CustomersController extends Controller
         if (isset($subscribed) && isset($group) == false && $subscribed == 'false'){
             $param = 5;
         }
-		if (isset($group) && isset($emails)){
+        if (isset($group) && isset($emails)){
             $param = 6;
         }
 
         $accounts = $this->account->allAccounts();
         foreach ($accounts as $a){
-        $contacts = $this->account->getContactsOfAccount($a->id);
+            $contacts = $this->account->getContactsOfAccount($a->id);
             foreach ($contacts as $contact){
                 $contact['companyName'] = $a->companyName;
                 $contact['taxIdNumber'] = $a->taxIdNumber;
@@ -104,21 +104,21 @@ class CustomersController extends Controller
                         }
                         break;
                     case 5:
-                        {
-                            $result[] = $contact;
-                        }
+                    {
+                        $result[] = $contact;
+                    }
                         break;
-					case 6:
-                        {
-							foreach($emails as $email){
-								
-								foreach($contact['options') as $option){
-									if($option['typeId'] == 2 && $option['subTypeId'] == 4 && $option['value'] == $email){
-										$result[] = $contact;
-									}
-								} 
+                    case 6:
+                    {
+                        foreach($emails as $email){
+
+                            foreach($contact['options'] as $option){
+                                if($option['typeId'] == 2 && $option['subTypeId'] == 4 && $option['value'] == $email){
+                                    $result[] = $contact;
+                                }
+                            }
 							}
-                        }
+                    }
                         break;
                     default:
                         $result[] = $contact;
@@ -127,10 +127,7 @@ class CustomersController extends Controller
             }
         }
 
-		foreach ($emails as $e){
-			$r[] = $e;
-		} 
-        return $this->response->json($r);
+        return $this->response->json($result);
     }
 }
 
