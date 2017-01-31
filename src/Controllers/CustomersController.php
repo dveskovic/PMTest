@@ -52,6 +52,7 @@ class CustomersController extends Controller
         $param = '';
         $group = $this->request->get('group');
         $subscribed = $this->request->get('subscribed');
+		$emails = $this->request->get('emails');
 
         if (isset($group) && isset($subscribed) == false){
             $param = 1;
@@ -109,7 +110,7 @@ class CustomersController extends Controller
             }
         }
 
-        return $this->response->json($result);
+        return $this->response->json($emails);
     }
 }
 
