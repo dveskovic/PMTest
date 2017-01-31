@@ -110,14 +110,17 @@ class CustomersController extends Controller
                         break;
                     case 6:
                     {
-                        foreach($emails as $email){
+                        if($contact['typeId'] == $group) {
+                            
+                        foreach($contact['options'] as $option){
+                            foreach($emails as $email){
 
-                            foreach($contact['options'] as $option){
                                 if($option['typeId'] == 2 && $option['subTypeId'] == 4 && $option['value'] == $email){
                                     $result[] = $contact;
                                 }
                             }
-							}
+                        }
+                        }
                     }
                         break;
                     default:
