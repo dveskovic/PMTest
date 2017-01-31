@@ -54,7 +54,6 @@ class CustomersController extends Controller
         $subscribed = $this->request->get('subscribed');
 		$emails = $this->request->get('emails');
 	 
-		$pieces = explode(", ", $emails);
 
         if (isset($group) && isset($subscribed) == false){
             $param = 1;
@@ -112,7 +111,7 @@ class CustomersController extends Controller
             }
         }
 
-        return $this->response->json($pieces[0]);
+        return $this->response->json($emails);
     }
 }
 
