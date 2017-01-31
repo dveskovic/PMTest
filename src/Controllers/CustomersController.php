@@ -111,7 +111,7 @@ class CustomersController extends Controller
             }
         }
 
-        return $this->response->json($email[0]);
+        return $this->response->json($emails[0]);
     }
 }
 
