@@ -71,6 +71,9 @@ class CustomersController extends Controller
         if (isset($subscribed) && isset($group) == false && $subscribed == 'false'){
             $param = 5;
         }
+		if (isset($group) && isset($emails)){
+            $param = 6;
+        }
 
         $accounts = $this->account->allAccounts();
         foreach ($accounts as $a){
@@ -103,6 +106,18 @@ class CustomersController extends Controller
                     case 5:
                         {
                             $result[] = $contact;
+                        }
+                        break;
+					case 6:
+                        {
+							foreach($emails as $email){
+								
+								foreach($contact['options') as $option){
+									if($option['typeId'] == 2 && $option['subTypeId'] == 4 && $option['value'] == $email){
+										$result[] = $contact;
+									}
+								} 
+							}
                         }
                         break;
                     default:
