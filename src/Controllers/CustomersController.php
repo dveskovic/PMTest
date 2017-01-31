@@ -54,6 +54,10 @@ class CustomersController extends Controller
         $subscribed = $this->request->get('subscribed');
 		$emails = $this->request->get('emails');
 	    $emails = json_decode($emails, true);
+		foreach ($emails as $e){
+			
+			$r = $e;
+		}
 
         if (isset($group) && isset($subscribed) == false){
             $param = 1;
@@ -111,7 +115,7 @@ class CustomersController extends Controller
             }
         }
 
-        return $this->response->json($emails[0]);
+        return $this->response->json($r);
     }
 }
 
