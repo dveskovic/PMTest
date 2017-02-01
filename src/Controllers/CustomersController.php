@@ -147,7 +147,7 @@ class CustomersController extends Controller
                                     if ($option['typeId'] == 11 && $option['subTypeId'] == 12 && $field == 'contact') {
                                         $result[$field] = $option['value'];
                                     }
-                                    if ($option['typeId'] == 5 && $option['subTypeId'] == 6 && $field == 'ebayName') {
+                                    if ($option['typeId'] == 5 && $option['subTypeId'] == 6 && $field == 'eBayName') {
                                         $result[$field] = $option['value'];
                                     }
                                     if ($option['typeId'] == 6 && $option['subTypeId'] == 8 && $field == 'pin') {
