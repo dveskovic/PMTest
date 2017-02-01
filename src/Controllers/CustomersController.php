@@ -128,10 +128,7 @@ class CustomersController extends Controller
                         break;
                     case 7: {
                         if ($contact['typeId'] == $group) {
-                            foreach ($fields as $field) {
-                                $this->getFieldValues($contact, $field);
-                            }
-
+                            $this->getOptionValues($contact, $fields);
                         }
                     }
                         break;
@@ -145,42 +142,39 @@ class CustomersController extends Controller
         return $this->response->json($result);
     }
 
-    /**
-     * returns option values
-     *
-     * @param $contact
-     * @param $field
-     */
-    private function getFieldValues($contact, $field)
+    private function getOptionValues($contact, $fields)
     {
         foreach ($contact['options'] as $option) {
-            if ($option['typeId'] == 1 && $option['subTypeId'] == 4 && $field == 'telephone') {
-                $result[$field] = $option['value'];
-            }
-            if ($option['typeId'] == 3 && $option['subTypeId'] == 4 && $field == 'fax') {
-                $result[$field] = $option['value'];
-            }
-            if ($option['typeId'] == 1 && $option['subTypeId'] == 2 && $field == 'mobile') {
-                $result[$field] = $option['value'];
-            }
-            if ($option['typeId'] == 2 && $option['subTypeId'] == 4 && $field == 'email') {
-                $result[$field] = $option['value'];
-            }
-            if ($option['typeId'] == 11 && $option['subTypeId'] == 12 && $field == 'contact') {
-                $result[$field] = $option['value'];
-            }
-            if ($option['typeId'] == 5 && $option['subTypeId'] == 6 && $field == 'eBayName') {
-                $result[$field] = $option['value'];
-            }
-            if ($option['typeId'] == 6 && $option['subTypeId'] == 8 && $field == 'pin') {
-                $result[$field] = $option['value'];
-            }
-            if ($option['typeId'] == 6 && $option['subTypeId'] == 9 && $field == 'dhl') {
-                $result[$field] = $option['value'];
+            foreach ($fields as $field) {
+
+                if ($option['typeId'] == 1 && $option['subTypeId'] == 4 && $field == 'telephone') {
+                    $result[$field] = $option['value'];
+                }
+                if ($option['typeId'] == 3 && $option['subTypeId'] == 4 && $field == 'fax') {
+                    $result[$field] = $option['value'];
+                }
+                if ($option['typeId'] == 1 && $option['subTypeId'] == 2 && $field == 'mobile') {
+                    $result[$field] = $option['value'];
+                }
+                if ($option['typeId'] == 2 && $option['subTypeId'] == 4 && $field == 'email') {
+                    $result[$field] = $option['value'];
+                }
+                if ($option['typeId'] == 11 && $option['subTypeId'] == 12 && $field == 'contact') {
+                    $result[$field] = $option['value'];
+                }
+                if ($option['typeId'] == 5 && $option['subTypeId'] == 6 && $field == 'eBayName') {
+                    $result[$field] = $option['value'];
+                }
+                if ($option['typeId'] == 6 && $option['subTypeId'] == 8 && $field == 'pin') {
+                    $result[$field] = $option['value'];
+                }
+                if ($option['typeId'] == 6 && $option['subTypeId'] == 9 && $field == 'dhl') {
+                    $result[$field] = $option['value'];
+                }
             }
         }
-    }
 
+    }
 }
 
 
