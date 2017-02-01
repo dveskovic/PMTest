@@ -83,7 +83,7 @@ class CustomersController extends Controller
         $accounts = $this->account->allAccounts();
         foreach ($accounts as $a) {
             $contacts = $this->account->getContactsOfAccount($a->id);
-            foreach ($contacts as $key => $contact) {
+            foreach ($contacts as $contact) {
                 $contact['companyName'] = $a->companyName;
                 $contact['taxIdNumber'] = $a->taxIdNumber;
 
@@ -129,11 +129,9 @@ class CustomersController extends Controller
                     case 7: {
                         if ($contact['typeId'] == $group) {
                             foreach ($fields as $field) {
-                                $this->getOptionValues($contact, $fields);
-                                if ($contact[$key] == $field) {
-                                    $result[$field] = $contact[$key];
-                                }
+                                $this->getFieldValues($contact, $field);
                             }
+
                         }
                     }
                         break;
@@ -148,12 +146,12 @@ class CustomersController extends Controller
     }
 
     /**
-     * Returns option values
+     * returns option values
      *
      * @param $contact
      * @param $field
      */
-    private function getOptionValues($contact, $field)
+    private function getFieldValues($contact, $field)
     {
         foreach ($contact['options'] as $option) {
             if ($option['typeId'] == 1 && $option['subTypeId'] == 4 && $field == 'telephone') {
