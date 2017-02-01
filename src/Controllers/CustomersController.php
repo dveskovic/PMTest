@@ -76,7 +76,7 @@ class CustomersController extends Controller
         if (isset($group) && isset($emails)) {
             $param = 6;
         }
-
+        
         $accounts = $this->account->allAccounts();
         foreach ($accounts as $a) {
             $contacts = $this->account->getContactsOfAccount($a->id);
