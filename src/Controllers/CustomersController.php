@@ -131,7 +131,7 @@ class CustomersController extends Controller
                             foreach ($fields as $field) {
                                 $this->getOptionValues($contact, $fields);
                                 if ($contact[$key] == $field) {
-                                    $result[$field] = $contact;
+                                    $result[$field] = $contact[$key];
                                 }
                             }
                         }
