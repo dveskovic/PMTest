@@ -4,7 +4,7 @@ use Plenty\Plugin\Controller;
 use Plenty\Modules\Frontend\Services;
 use Plenty\Modules\System\Models;
 use Plenty\Modules\Account\Contracts\AccountRepositoryContract;
-use Plenty\Modules\Account\Contact\Contracts\ContactTypeRepositoryContract;
+use Plenty\Modules\Account\Contact\Contracts\ContactOptionRepositoryContract;
 use Plenty\Plugin\Http\Response;
 use Plenty\Plugin\Http\Request;
 
@@ -26,8 +26,8 @@ class CustomersController extends Controller
      * @var AccountRepositoryContract
      */
     private $account;
-	  /**
-     * @var ContactTypeRepositoryContract
+    /**
+     * @var ContactOptionRepositoryContract
      */
     private $contactType;
 
@@ -35,7 +35,7 @@ class CustomersController extends Controller
         Response $response,
         Request $request,
         AccountRepositoryContract $account,
-        ContactTypeRepositoryContract $contactType)
+        ContactOptionRepositoryContract $contactType)
     {
         $this->response = $response;
         $this->request = $request;
@@ -51,7 +51,7 @@ class CustomersController extends Controller
     public function customers()
     {
 
-        $contactData = $this->contactType->findContactTypeById(1);
+        $contactData = $this->contactType->findContactOptions(104, 2, 4);
         return $this->response->json($contactData);
     }
 }
